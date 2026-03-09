@@ -1,12 +1,32 @@
 {
-  "name": "traavellio-framer",
+  "name": "traavellio",
   "version": "1.0.0",
+  "description": "Travel application with frontend, backend, and admin panel",
+  "private": true,
   "scripts": {
-    "dev": "npx serve public",
-    "build": "echo 'No build step needed for static site'",
-    "start": "npx serve public"
+    "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "start": "npm run start:backend",
+    "start:backend": "cd backend && npm start"
   },
-  "dependencies": {
-    "serve": "^14.2.0"
-  }
+  "workspaces": [
+    "frontend",
+    "backend",
+    "admin"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "keywords": [
+    "travel",
+    "booking",
+    "admin",
+    "payment"
+  ],
+  "author": "",
+  "license": "ISC"
 }

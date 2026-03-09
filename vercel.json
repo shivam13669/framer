@@ -1,20 +1,42 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "trailingSlash": false,
+  "buildCommand": "npm run build",
+  "installCommand": "npm install --legacy-peer-deps",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "backend/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "source": "/api/:path*",
+      "destination": "https://your-backend-url.vercel.app/api/:path*"
     },
     {
-      "source": "/(.*)",
-      "destination": "/public/$1",
-      "check": true
+      "source": "/admin/:path*",
+      "destination": "/admin/index.html"
     },
     {
-      "source": "/(.*)",
-      "destination": "/public/index.html"
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        }
+      ]
     }
   ]
 }
